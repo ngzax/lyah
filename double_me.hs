@@ -70,12 +70,33 @@ maximum' [x] = x
 --     where maxTail = maximum' xs
 maximum' (x:xs) = max' x (maximum' xs)
 
+-- Sectioning an infix function
+divideByTen :: (Floating a) => a -> a  
+divideByTen = (/10)
+
+-- A function can return a function...
 applyTwice :: (a -> a) -> a -> a  
 applyTwice f x = f (f x)
 
+-- higher order programming...
 zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]  
 zipWith' _ [] _ = []  
 zipWith' _ _ [] = []  
 zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
 
+-- Quicksort using powerful filter...
+quicksort :: (Ord a) => [a] -> [a]    
+quicksort [] = []    
+quicksort (x:xs) =     
+    let smallerSorted = quicksort (filter (<=x) xs)  
+        biggerSorted = quicksort (filter (>x) xs)   
+    in  smallerSorted ++ [x] ++ biggerSorted
+
+-- fold examples... shows lambdas
+-- sum' :: (Num a) => [a] -> a  
+-- sum' xs = foldl (\acc x -> acc + x) 0 xs  
+
+-- .. and using currying... because (+) is the same as (\acc x -> acc + x)
+sum' :: (Num a) => [a] -> a  
+sum' = foldl (+) 0
 
