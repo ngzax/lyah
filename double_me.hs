@@ -100,3 +100,19 @@ quicksort (x:xs) =
 sum' :: (Num a) => [a] -> a  
 sum' = foldl (+) 0
 
+-- Function application and composition
+-- Plain implementation
+-- oddSquareSum :: Integer  
+-- oddSquareSum = sum (takeWhile (<10000) (filter odd (map (^2) [1..])))
+
+-- Using composition
+-- oddSquareSum :: Integer  
+-- oddSquareSum = sum . takeWhile (<10000) . filter odd . map (^2) $ [1..]
+
+-- Using let + application
+oddSquareSum :: Integer  
+oddSquareSum =   
+    let oddSquares = filter odd $ map (^2) [1..]  
+        belowLimit = takeWhile (<10000) oddSquares  
+    in  sum belowLimit
+
